@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+
+        <record id="library_book_view_search" model="ir.ui.view">
+            <field name="name">library.book.search</field>
+            <field name="model">library.book</field>
+            <field name="arch" type="xml">
+                <search string="Library">
+                    <field name="title" string="Title"/>
+                    <field name="author_ids"/>
+                    <field name="reader_rating" string="Reader Rate"/>
+                    <field name="age_days" string="Age Days" />
+                    <separator/>
+                    <filter string="No Author" name="state" domain = "[('author_ids', '=', False)]"  />
+                </search>
+            </field>
+        </record>
+
+        <record id="library_book_view_form" model="ir.ui.view">
+            <field name="name">library.book.form</field>
+            <field name="model">library.book</field>
+            <field name="arch" type="xml">
+                <form string="Library book">
+                    <header>
+                        <button name="create_book_category" string='Create Category' type="object" class="oe_highlight btn-info btn-sm"/>
+                        <button name="make_available" string='Make Available' type="object" class="oe_highlight btn-success"/>
+                        <button name="make_borrowed" string='Make Borrowed' type="object" class="oe_highlight btn-warning"/>
+                        <button name="make_lost" string='Make Lost' type="object" class="oe_highlight btn-danger"/>
+                        <button name="get_author_name" string='Get Author Names' type="object" class="oe_highlight"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,available,borrowed, lost" />
+                    </header>
+                    <sheet>
+                        <group>
+                            <h1>
+                                <group>
+                                    <field name="title"/>
+                                </group>
+                            </h1>
+                            <group>
+                            </group>
+                            <group>
+                                <br/>
+                            </group>
+                            <group>
+                                <br/>
+                            </group>
+                            <group>
+                                <field name="publisher_id"/>
+                                <field name="email"/>
+                                <field name="phone_number"/>
+                                <field name="release_date"/>
+                                <field name="author_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                                <field name="short_title"/>
+                                <field name="state"/>
+                                <field name="category_ids"/>
+                            </group>
+                            <group>
+                                <field name="librarian_id"/>
+                                <field name="out_of_print" />
+                                <field name="number_of_pages" attrs="{'readonly': [('state', '=', 'lost')]}"/>
+                                <field name="reader_rating"/>
+                                <field name="retail_price"/>
+                                <field name="age_days" string="Age Days"/>
+                                <field name="author_names" string="Author Names"/>
+                            </group>
+                        </group>
+                        <separator/>
+                        <h6>
+                            INTERNAL NOTES
+                        </h6>
+                        <hr/>
+                        <br/>
+                        <field name="internal_notes" string="INTERNAL NOTES" placeholder="Write internal notes..."/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="library_book_view_tree" model="ir.ui.view">
+            <field name="name">library.book.tree</field>
+            <field name="model">library.book</field>
+            <field name="arch" type="xml">
+                <tree string="Library book"  decoration-success="state=='available'" decoration-danger="state=='lost'">
+                    <field name="title" string="Name"/>
+                    <field name="release_date" string="Release date"/>
+                    <field name="author_ids" string="Author" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                    <field name="state" string="State"/>
+                    <field name="reader_rating" string="Reader average rating"/>
+                    <field name="retail_price" string="Retail price"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="book_action" model="ir.actions.act_window">
+            <field name="name">Book Details</field>
+            <field name="res_model">library.book</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</odoo>

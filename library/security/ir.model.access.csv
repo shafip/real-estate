@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_library_book_librarian,access_library_book_librarian,model_library_book,library.library_librarian_views,1,1,1,1
+access_library_book,access_library_book,model_library_book,,1,0,0,0
+access_library_book_publisher,access_library_book_publisher,model_library_book_publisher,,1,1,1,1
+access_library_published_books,access_library_published_books,model_library_published_books,,1,1,1,1
+access_book_category,access_book_category,model_library_book_category,,1,1,1,1
